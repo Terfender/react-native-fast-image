@@ -11,6 +11,7 @@ class FastImageViewWithUrl extends AppCompatImageView {
     public GlideUrl glideUrl;
     public ReadableMap source;
     public ReadableMap imageSizeOverride;
+    public ReadableMap glideConfigs;
 
     public FastImageViewWithUrl(Context context) {
         super(context);

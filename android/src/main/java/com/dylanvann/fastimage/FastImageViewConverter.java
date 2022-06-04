@@ -17,6 +17,7 @@ import com.bumptech.glide.load.model.Headers;
 import com.bumptech.glide.load.model.LazyHeaders;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.signature.ApplicationVersionSignature;
+import com.bumptech.glide.load.DecodeFormat;
 import com.facebook.react.bridge.JSApplicationIllegalArgumentException;
 import com.facebook.react.bridge.NoSuchKeyException;
 import com.facebook.react.bridge.ReadableMap;
@@ -136,6 +137,55 @@ class FastImageViewConverter {
 
         // No Image Size Override Required
         return new RequestOptions();
+    }
+
+    static RequestOptions getGlideConfigs(ReadableMap glideConfigs) {
+        RequestOptions options = new RequestOptions();
+        if (glideConfigs != null) {
+            // Log.d(glideConfigs.toString());
+            if (glideConfigs.hasKey("skipMemoryCache")) {
+                options.skipMemoryCache(glideConfigs.getBoolean("skipMemoryCache"));
+            }
+
+            if (glideConfigs.hasKey("diskCacheStrategy")) {
+                DiskCacheStrategy diskCacheStrategy = DiskCacheStrategy.AUTOMATIC;
+                switch(glideConfigs.getString("diskCacheStrategy")) {
+                    case "ALL":
+                        diskCacheStrategy = DiskCacheStrategy.ALL;
+                        break;
+                    case "NONE":
+                        diskCacheStrategy = DiskCacheStrategy.NONE;
+                        break;
+                    case "DATA":
+                        diskCacheStrategy = DiskCacheStrategy.DATA;
+                        break;
+                    case "RESOURCE":
+                        diskCacheStrategy = DiskCacheStrategy.RESOURCE;
+                        break;
+                    default:
+                        diskCacheStrategy = DiskCacheStrategy.AUTOMATIC;
+                  }
+                options.diskCacheStrategy(diskCacheStrategy);
+            }
+
+            if (glideConfigs.hasKey("decodeFormat")) {
+                DecodeFormat decodeFormat = DecodeFormat.PREFER_ARGB_8888;
+                switch(glideConfigs.getString("decodeFormat")) {
+                    case "PREFER_ARGB_8888":
+                        decodeFormat = DecodeFormat.PREFER_ARGB_8888;
+                        break;
+                    case "PREFER_RGB_565":
+                        decodeFormat = DecodeFormat.PREFER_RGB_565;
+                        break;
+                    default:
+                        decodeFormat = DecodeFormat.PREFER_ARGB_8888;
+                  }
+                options.format(decodeFormat);
+            }
+        }
+
+        // No glide configs to be overriden
+        return options;
     }
 
     private static FastImageCacheControl getCacheControl(ReadableMap source) {

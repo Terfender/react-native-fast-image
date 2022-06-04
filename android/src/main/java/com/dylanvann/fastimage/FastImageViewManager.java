@@ -10,6 +10,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
 import com.bumptech.glide.load.model.GlideUrl;
 import com.bumptech.glide.request.Request;
+import com.bumptech.glide.load.DecodeFormat;
 import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.bridge.WritableNativeMap;
@@ -124,8 +125,10 @@ class FastImageViewManager extends SimpleViewManager<FastImageViewWithUrl> imple
                     //    - android.resource://
                     //    - data:image/png;base64
                     .load(imageSource.getSourceForLoad())
+                    .fitCenter()
                     .apply(FastImageViewConverter.getOptions(context, imageSource, source))
                     .apply(FastImageViewConverter.getImageResizeOptions(view.imageSizeOverride))
+                    .apply(FastImageViewConverter.getGlideConfigs(view.glideConfigs))
                     .listener(new FastImageRequestListener(key))
                     .into(view);
         }
@@ -145,6 +148,11 @@ class FastImageViewManager extends SimpleViewManager<FastImageViewWithUrl> imple
         // Re-run Glide with width and height override values set.
         view.imageSizeOverride = imageSizeOverride;
         setSrc(view, view.source);
+    }
+
+    @ReactProp(name = "glideConfigs")
+    public void setGlideConfigs(FastImageViewWithUrl view, ReadableMap glideConfigs) {
+        view.glideConfigs = glideConfigs;
     }
 
     @ReactProp(name = "resizeMode")

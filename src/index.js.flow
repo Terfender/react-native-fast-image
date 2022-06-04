@@ -29,6 +29,12 @@ export type ResizeImageAndroid = $ReadOnly<{|
     height: number,
 |}>
 
+export type GlideConfigs = $ReadOnly<{|
+    skipMemoryCache: boolean,
+    diskCacheStrategy: string,
+    decodeFormat: string,
+|}>
+
 export type Priority = $ReadOnly<{|
     low: 'low',
     normal: 'normal',
@@ -65,6 +71,7 @@ export type FastImageProps = $ReadOnly<{|
 
     resizeMode?: ?ResizeModes,
     resizeImageAndroid?: ?ResizeImageAndroid,
+    glideConfigs?: ?GlideConfigs,
     fallback?: ?boolean,
     testID?: ?string,
 |}>

@@ -85,6 +85,7 @@ export interface FastImageProps extends AccessibilityProps, ViewProps {
     resizeMode?: ResizeMode
     fallback?: boolean
     resizeImageAndroid?: ResizeImageAndroid
+    glideConfigs?: GlideConfigs
 
     onLoadStart?(): void
 
@@ -210,8 +211,14 @@ export interface FastImageStaticProperties {
 }
 
 export type ResizeImageAndroid = {
-    width: number
-    height: number
+    width?: number
+    height?: number
+}
+
+export type GlideConfigs = {
+    skipMemoryCache?: boolean
+    diskCacheStrategy?: string
+    decodeFormat?: string
 }
 
 const FastImage: React.ComponentType<FastImageProps> &
