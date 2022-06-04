@@ -30,9 +30,9 @@ export type ResizeImageAndroid = $ReadOnly<{|
 |}>
 
 export type GlideConfigs = $ReadOnly<{|
-    skipMemoryCache: boolean,
-    diskCacheStrategy: string,
-    decodeFormat: string,
+    skipMemoryCache?: boolean,
+    diskCacheStrategy?: string,
+    decodeFormat?: string,
 |}>
 
 export type Priority = $ReadOnly<{|

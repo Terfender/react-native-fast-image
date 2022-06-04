@@ -142,13 +142,12 @@ class FastImageViewConverter {
     static RequestOptions getGlideConfigs(ReadableMap glideConfigs) {
         RequestOptions options = new RequestOptions();
         if (glideConfigs != null) {
-            // Log.d(glideConfigs.toString());
             if (glideConfigs.hasKey("skipMemoryCache")) {
                 options.skipMemoryCache(glideConfigs.getBoolean("skipMemoryCache"));
             }
 
             if (glideConfigs.hasKey("diskCacheStrategy")) {
-                DiskCacheStrategy diskCacheStrategy = DiskCacheStrategy.AUTOMATIC;
+                DiskCacheStrategy diskCacheStrategy;
                 switch(glideConfigs.getString("diskCacheStrategy")) {
                     case "ALL":
                         diskCacheStrategy = DiskCacheStrategy.ALL;
@@ -169,7 +168,7 @@ class FastImageViewConverter {
             }
 
             if (glideConfigs.hasKey("decodeFormat")) {
-                DecodeFormat decodeFormat = DecodeFormat.PREFER_ARGB_8888;
+                DecodeFormat decodeFormat;
                 switch(glideConfigs.getString("decodeFormat")) {
                     case "PREFER_ARGB_8888":
                         decodeFormat = DecodeFormat.PREFER_ARGB_8888;
@@ -184,7 +183,6 @@ class FastImageViewConverter {
             }
         }
 
-        // No glide configs to be overriden
         return options;
     }
 
