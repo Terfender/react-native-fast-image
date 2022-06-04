@@ -84,6 +84,7 @@ export interface FastImageProps extends AccessibilityProps, ViewProps {
     source: Source | number
     resizeMode?: ResizeMode
     fallback?: boolean
+    resizeImageAndroid?: ResizeImageAndroid
 
     onLoadStart?(): void
 
@@ -206,6 +207,11 @@ export interface FastImageStaticProperties {
     preload: (sources: Source[]) => void
     clearMemoryCache: () => Promise<void>
     clearDiskCache: () => Promise<void>
+}
+
+export type ResizeImageAndroid = {
+    width: number
+    height: number
 }
 
 const FastImage: React.ComponentType<FastImageProps> &
