@@ -17,6 +17,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.WeakHashMap;
 
+import okhttp3.Call;
 import okhttp3.Interceptor;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
@@ -45,7 +46,7 @@ public class FastImageOkHttpProgressGlideModule extends LibraryGlideModule {
                 .newBuilder()
                 .addInterceptor(createInterceptor(progressListener))
                 .build();
-        OkHttpUrlLoader.Factory factory = new OkHttpUrlLoader.Factory(client);
+    OkHttpUrlLoader.Factory factory = new OkHttpUrlLoader.Factory((Call.Factory) client);
         if (registry != null){
             registry.replace(GlideUrl.class, InputStream.class, factory);
         }
